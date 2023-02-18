@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请点击右上角</title>
+    <style type="text/css">
+        @keyframes mymove2{
+            100%{background-color:black}
+            90%{background-color: crimson;}
+            75%{background-color:cadetblue}
+            50%{background-color:blueviolet}
+            25%{background-color:cadetblue}
+            15%{background-color: aquamarine;}
+            10%{background-color:blue}
+            0%{background-color:black;}
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+ 
+        #weixin-tip-box {
+            position: fixed;
+            right: 0;
+            top: 4px;
+            align-items: center;
+        }
+        .weixin-tip {
+            animation: mymove2 4s linear infinite;
+            z-index: 100;
+            padding: 8px;
+            border-radius: 8px;
+            margin-right: 8px
+        }
+ 
+        .weixin-tip p {
+            text-align: center;
+            font-size: 14px;
+            color: #fff
+        }
+ 
+        .weixin-tip p.content {
+            text-align: center;
+            font-size: 14px
+        }
+        @keyframes mymove1{
+            100%{border-color: transparent transparent black}
+            90%{border-color: transparent transparent crimson;}
+            75%{border-color: transparent transparent cadetblue}
+            50%{border-color: transparent transparent blueviolet}
+            25%{border-color: transparent transparent cadetblue}
+            15%{border-color: transparent transparent aquamarine;}
+            10%{border-color: transparent transparent blue}
+            0%{border-color: transparent transparent black;}
+        }
+        @keyframes mymove3{
+            0%{top: 0px;}
+            50%{top: 25px;}
+            100%{top: 0px;}
+        }
+        .triangle_border_up {
+            animation: mymove1 4s linear infinite;
+            width: 0;
+            height: 0;
+            border-width: 0 6px 12px;
+            border-style: solid;
+            /*透明 透明  灰*/
+            margin-left: 114px
+        }
+        #weixin-tip-box{
+            position: absolute;
+            animation: mymove3 1s linear infinite;
+        }
+    </style>
+    
+</head>
+<body>
+<div id='weixin-tip-box'>
+    <div class="triangle_border_up">
+        <span></span>
+    </div>
+    <div class="weixin-tip">
+        <p>
+            请点击右上角
+        </p>
+        <p class="content">
+            选择"浏览器中打开"
+        </p>
+    </div>
+</div>
+<script>
+    //获取ua
+    var ua = navigator.userAgent.toLowerCase();
+    //判断是不是qq内置浏览器
+    //如果是 显示在浏览器打开
+    if (ua.match(/QQ/i) == "qq") {
+        document.getElementById('weixin-tip-box').style.display = 'none';
+    }
+    //如果不是 则隐藏 并修改标题
+    else {
+        document.title = '跳转中...';
+        document.getElementById('weixin-tip-box').style.display = 'none';
+        //获取当前url
+        var url = window.location.href;
+        console.log(url);
+        //切出来参数
+        //如果没有参数
+        if (url.indexOf('?') == -1) {
+            //判断是不是首页
+            if (url.indexOf('/') != -1) {
+                //如果是首页
+                //直接跳转
+                window.location.href = 'https://lxdn.cc';
+            } else {
+                //如果不是首页
+                //跳转到首页
+                window.location.href = '/';
+            }
+        } else {
+            //如果有参数
+            //切出来参数
+            var param = url.split('?')[1];
+            //再切出来参数和值的json
+            var paramJson = {};
+            var paramArr = param.split('&');
+            for (var i = 0; i < paramArr.length; i++) {
+                var item = paramArr[i];
+                var itemArr = item.split('=');
+                paramJson[itemArr[0]] = itemArr[1];
+            }
+            //判断是不是首页
+            if (url.indexOf('/') != -1) {
+                //如果是首页
+                //直接跳转
+                //提取u参数
+                var u = paramJson['u'];
+                //直接跳转
+                window.location.href = 'https://lxdn.cc/' + u;
+            }
+            else {
+                //如果不是首页
+                //跳转到首页
+                window.location.href = '/' +"?" + 'u='+u;
+            }
+        }
+
+    }
+</script>
+</body>
+</html>
