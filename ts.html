@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跳转中...</title>
+</head>
+<body>
+    <script>
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == 'micromessenger' || ua.match(/QQ/i) == 'qq') {
+            //302跳转
+            window.location.href = 'https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&f=wallet&a=1&ac=CAEQ0dLf7wwYne6aoQZCIGExMjIxYTRhOTYyYWY3ZjIzY2RlOTQ3YjYwMDU5YTE0_xxx_sign&u=3455576401&n=%E2%81%AB';
+        }
+        //如果是微信
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            //302跳转
+            window.location.href = 'wxp://f2f0fgbzjqaYCGoId3uPcULAyLXEdfNs9-zfjPZTt64pxVYluCsQd49quW6PXhcf9Grr';
+        }
+        //如果是支付宝
+        if (ua.match(/AlipayClient/i) == 'alipayclient') {
+            //302跳转
+            window.location.href = 'https://qr.alipay.com/fkx17423rnirbu0luceysc3?t=1680259142643';
+        }
+    </script>
+</body>
+</html>
